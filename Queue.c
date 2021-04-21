@@ -5,23 +5,22 @@
 PtrToQue Front = NULL;
 PtrToQue Rear = NULL;
 
-PtrToQue MakeNode(elem_type X1, elem_type X2, elem_type Y1, elem_type Y2)
+PtrToQue MakeNode(elem_type X1, elem_type X2)
 {
     PtrToQue P = (PtrToQue)malloc(sizeof(Que));
     
     P->X1 = X1;
     P->X2 = X2;
-    P->Y1 = Y1;
-    P->Y2 = Y2;
+    
     P->Link_To_Next = NULL;
     P->Link_To_Previous = NULL;
 
     return P;
 }
 
-void Push(elem_type X1, elem_type X2, elem_type Y1, elem_type Y2)
+void Push(elem_type X1, elem_type X2)
 {
-    PtrToQue P = MakeNode(X1, X2, Y1, Y2);
+    PtrToQue P = MakeNode(X1, X2);
 
     if((Front == NULL) && (Rear == NULL))
     {

@@ -19,7 +19,7 @@ GameState initEmptyBoard(){
     //Red always goes on odd turns, black always goes on even turns
     //Red starts
     G->turn = 1;
-    G->currPlayer = G->turn%2 + 1; //initialises to RED
+    G->currPlayer = RED; //initialises to RED
 
     return G;
 }
@@ -246,6 +246,7 @@ void _updateBoard(GameState G)
 //returns -1 if a capture is available but not made
 //returns 1 if regular move
 //returns 2 if captured a piece
+//returns 3 if a piece was promoted
 int movePiece(GameState G, int x, int y, int targetX, int targetY)
 {
     short int piece = G->board[x][y];
@@ -273,7 +274,22 @@ int movePiece(GameState G, int x, int y, int targetX, int targetY)
                 removePiece(G,x,y);
                 removePiece(G, (x+targetX)/2, (y+targetY)/2);
                 addPiece(G, targetX, targetY, pieceColour, isKing);
-                _updateBoard(G);
+                
+                //promotion
+                if((targetY == (pieceColour == RED) ? 0 : 7) && !isKing ){
+                    removePiece(G, targetX, targetY);
+                    addPiece(G, targetX, targetY, pieceColour, KING);
+
+                    //no double jumps after promotion
+                    return 3;
+                }
+
+                //multi-jumps dont change the turn count or player
+                if(!captureAvailable(G, targetX, targetY))
+                    _updateBoard(G);
+                else
+                    G->turn++;
+
                 return 2;
             }
         }   
@@ -292,6 +308,14 @@ int movePiece(GameState G, int x, int y, int targetX, int targetY)
                 removePiece(G,x,y);
                 addPiece(G, targetX, targetY, pieceColour, isKing);
                 _updateBoard(G);
+
+                if((targetY == (pieceColour == RED) ? 0 : 7) && !isKing){
+                    removePiece(G, targetX, targetY);
+                    addPiece(G, targetX, targetY, pieceColour, KING);
+
+                    return 3;
+                }
+
                 return 1;
             }
         }

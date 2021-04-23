@@ -100,10 +100,12 @@ void displayBoard(GameState G)
                     else printf(" ■");
                     break;
                 case 0: 
-                    printf(" P");
+                    printf(" \x1B[34mP");
+                    printf("\x1b[0m");
                     break;
                 case 1: 
-                    printf(" K");
+                    printf(" \x1B[34mK");
+                    printf("\x1b[0m");
                     break;
                 case 2: 
                     printf(" \x1b[31mP");
@@ -309,7 +311,7 @@ int movePiece(GameState G, int x, int y, int targetX, int targetY)
                 addPiece(G, targetX, targetY, pieceColour, isKing);
                 _updateBoard(G);
 
-                if((targetY == (pieceColour == RED) ? 0 : 7) && !isKing){
+                if((targetY == ((pieceColour == RED) ? 0 : 7)) && !isKing){
                     removePiece(G, targetX, targetY);
                     addPiece(G, targetX, targetY, pieceColour, KING);
 

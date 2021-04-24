@@ -278,7 +278,7 @@ int movePiece(GameState G, int x, int y, int targetX, int targetY)
                 addPiece(G, targetX, targetY, pieceColour, isKing);
                 
                 //promotion
-                if((targetY == (pieceColour == RED) ? 0 : 7) && !isKing ){
+                if((targetY == ((pieceColour == RED) ? 0 : 7)) && !isKing ){
                     removePiece(G, targetX, targetY);
                     addPiece(G, targetX, targetY, pieceColour, KING);
 
@@ -298,29 +298,32 @@ int movePiece(GameState G, int x, int y, int targetX, int targetY)
     }
 
     else if(xDist == 1 && yDist == 1){
-        //this state is reached if a non capture move is made when one is available
-        if(captureAvailable(G, x, y))
-            return -1;
+
+        //this state checks if a non capture move is made when one is available        
+        for(int i = 0; i < SIZE; i++)
+            for(int j = 0; j < SIZE; j++){
+                if((G->board[i][j] >> 1 == pieceColour) && captureAvailable(G, i, j))
+                    return -1;
+            }
 
         //this state checks for illegal moves that are on the board
+        if(!isEmpty(G, targetX, targetY) || (!isKing && (targetY-y) != direction))
+            return 0;
         else{
-            if(!isEmpty(G, targetX, targetY) || (!isKing && (targetY-y) != direction))
-                return 0;
-            else{
-                removePiece(G,x,y);
-                addPiece(G, targetX, targetY, pieceColour, isKing);
-                _updateBoard(G);
+            removePiece(G,x,y);
+            addPiece(G, targetX, targetY, pieceColour, isKing);
+            _updateBoard(G);
 
-                if((targetY == ((pieceColour == RED) ? 0 : 7)) && !isKing){
-                    removePiece(G, targetX, targetY);
-                    addPiece(G, targetX, targetY, pieceColour, KING);
+            if((targetY == ((pieceColour == RED) ? 0 : 7)) && !isKing){
+                removePiece(G, targetX, targetY);
+                addPiece(G, targetX, targetY, pieceColour, KING);
 
-                    return 3;
-                }
-
-                return 1;
+                return 3;
             }
+
+            return 1;
         }
+        
     }
     else
         return 0;

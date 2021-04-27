@@ -27,7 +27,7 @@
 //Turn stores the current turn, curr_player stores whose move it is 
 struct GameStateS{
     int turn;
-    int curr_player;
+    int currPlayer;
     short int board[8][8];
 };
 typedef struct GameStateS* GameState;
@@ -35,20 +35,21 @@ typedef struct GameStateS* GameState;
 //REMEMBER TO FREE DECLARED GAME STATES
 GameState initEmptyBoard();
 void setBoard(GameState G);
+void copyBoard(GameState src, GameState dest);
 
 //doesnt overwrite pieces, returns if non empty piece
 void addPiece(GameState G, int x, int y, int colour, int type);
 void removePiece(GameState G, int x, int y);
 
 //moves a piece from (x,y) to the target location if possible
-void movePiece(GameState G, int x, int y, int targetX, int targetY);
+int movePiece(GameState G, int x, int y, int targetX, int targetY);
 
 //prints a gamestate w/out and after clearing the terminal respectively
 void displayBoard(GameState G);
 void displayBoardClear(GameState G);
 
-int _isEmpty(GameState G, int x, int y);
-int _validMove(GameState G, int x, int y);
-int _captureAvailable(GameState G, int x, int y);
+int isEmpty(GameState G, int x, int y);
+int validMove(GameState G, int x, int y);
+int captureAvailable(GameState G, int x, int y);
 
 #endif

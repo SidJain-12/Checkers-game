@@ -12,6 +12,10 @@ int main(void){
     GameState G = initEmptyBoard();
     setBoard(G);
     displayBoardClear(G);
+    char operation[100]
+    scanf("%s",operation);
+    if(strcmp(operation,"movepiece")==0)
+    {
     printf("Enter x and y coordinates of the piece you want to move and the target square\n");
 
     int x=0,y=0,tX=0,tY=0;
@@ -49,4 +53,18 @@ int main(void){
 
         }
     }
+    }
+    else if(strcmp(operation,"review")==0)
+    {
+    //review func//
+    }
+    else if(strcmp(operation,"undo")==0)
+    {
+    //undo func
+    }
+    else if(strcmp(operation,"Show_Possible_moves")==0)
+    {
+    //func
+    }
+    
 }

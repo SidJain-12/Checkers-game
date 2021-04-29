@@ -30,5 +30,4 @@ A jump consists of moving a piece that is diagonally adjacent an opponent's piec
 Men can jump diagonally forward only; kings can jump in any diagonal direction. A jumped piece is considered "captured" and removed from the game. Any piece, king or man, can jump a king. 
 
 >> NOTE:
-If a player has the option to jump, he must take it, even if doing so results in disadvantage for the jumping player.<<
-##Time Complexity of the code:
+If a player has the option to jump, he must take it, even if doing so results in disadvantage for the jumping player.

@@ -31,3 +31,4 @@ Men can jump diagonally forward only; kings can jump in any diagonal direction. 
 
 >> NOTE:
 If a player has the option to jump, he must take it, even if doing so results in disadvantage for the jumping player.
+##Time Complexity of the code:

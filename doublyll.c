@@ -4,7 +4,7 @@
 struct Node* GetNewNode(GameState G) 
 {
 	struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
-	newNode->GameState = G;
+	newNode->G = G;
 	newNode->prev = NULL;
 	newNode->next = NULL;
 	return newNode;

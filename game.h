@@ -36,6 +36,7 @@ typedef struct GameStateS* GameState;
 GameState initEmptyBoard();
 void setBoard(GameState G);
 void copyBoard(GameState src, GameState dest);
+void freeBoard(GameState G);
 
 //doesnt overwrite pieces, returns if non empty piece
 void addPiece(GameState G, int x, int y, int colour, int type);
@@ -43,6 +44,8 @@ void removePiece(GameState G, int x, int y);
 
 //moves a piece from (x,y) to the target location if possible
 int movePiece(GameState G, int x, int y, int targetX, int targetY);
+void updateBoard(GameState G);
+int winLose(GameState G);
 
 //prints a gamestate w/out and after clearing the terminal respectively
 void displayBoard(GameState G);

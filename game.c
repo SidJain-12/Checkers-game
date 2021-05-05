@@ -34,7 +34,6 @@ void copyBoard(GameState src, GameState dest)
     dest->currPlayer = src->turn;   
 }
 
-
 //fills a board with empty positions
 void setBoard(GameState G){
     for(int i = 0; i < SIZE; i++)
@@ -243,6 +242,48 @@ void _updateBoard(GameState G)
     else G->currPlayer = RED;
     return;
 }
+void updateBoard(GameState G)
+{
+    G->turn++;
+    if(G->currPlayer == RED) G->currPlayer = BLACK;
+    else G->currPlayer = RED;
+    return;
+}
+
+//checks if the current player has any playable moves at all
+//uses code from moveAvailable more generally
+int winLose(GameState G){
+    int possibleMove = 0, piecesRemaining = 0;
+    for(int i = 0; i < SIZE; i++)
+        for(int j = 0; j < SIZE; j++){
+            if(G->board[i][j] >> 1 == G->currPlayer)
+            {
+                piecesRemaining = 1;
+
+                short int tempPiece = G->board[i][j];
+                if(tempPiece == BLACK_KING || tempPiece == RED_KING){
+                    for(int k = -1; k < 2; k +=2)
+                        for(int l = -1; l < 2; l +=2)
+                            if(validMove(G, i + k, j + l) && isEmpty(G, i + k, j + l))
+                                possibleMove = 1;
+                }
+                else{
+                    short int tempPieceColour = tempPiece >> 1;
+                    int direction = (tempPieceColour == RED) ? -1 : 1;
+
+                    for(int k = -1; k < 2; k +=2)
+                        if(validMove(G, i + k, j + direction) && isEmpty(G, i + k, j + direction))
+                            possibleMove = 1;           
+                }
+            }
+        }
+
+    //no possible moves/no remaining pieces means the player has lost
+    if(!(possibleMove && piecesRemaining))
+        return 0;
+    else
+        return 1;
+}
 
 //returns 0 for an invalid move (out of bounds/onto another piece/no possible moves)
 //returns -1 if a capture is available but not made
@@ -252,36 +293,33 @@ void _updateBoard(GameState G)
 int movePiece(GameState G, int x, int y, int targetX, int targetY)
 {
     short int piece = G->board[x][y];
-    short int pieceColour = piece >> 1;
+    short int pieceColour = piece >> 1;     //simultaneously checks for colours and emptiness
     short int isKing = piece%2;
     short int direction = (pieceColour) ? -1 : 1;
 
+    //checks if the given move is valid
     if(!validMove(G, targetX, targetY) || !validMove(G, x, y) || pieceColour != G->currPlayer)
         return 0;
-
-    if(pieceColour == G->currPlayer){
-
-    }    
 
     short int xDist = _abs(x-targetX);
     short int yDist = _abs(y-targetY);
 
     if(xDist == 2 && yDist == 2){
         if(!captureAvailable(G, x, y))
-            return 0;
+            {return 0;}
         else{
             if(!isEmpty(G, targetX, targetY) || (!isKing && (targetY-y)/2 != direction))
-                return 0;
+                {return 0;}
             else{
                 removePiece(G,x,y);
                 removePiece(G, (x+targetX)/2, (y+targetY)/2);
                 addPiece(G, targetX, targetY, pieceColour, isKing);
                 
                 //promotion
-                if((targetY == ((pieceColour == RED) ? 0 : 7)) && !isKing ){
+                if((targetY == ((pieceColour == RED) ? 0 : 7) ) && !isKing ){
                     removePiece(G, targetX, targetY);
                     addPiece(G, targetX, targetY, pieceColour, KING);
-
+                    _updateBoard(G);
                     //no double jumps after promotion
                     return 3;
                 }

@@ -11,7 +11,7 @@ struct Node
 
 struct Node* GetNewNode(GameState G);
 void insert(GameState G, struct Node *head);
-GameState Undo(struct Node *head);
+void Undo(struct Node *head);
 void Review(struct Node *head);
 
 #endif

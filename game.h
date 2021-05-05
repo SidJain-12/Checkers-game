@@ -43,6 +43,7 @@ void removePiece(GameState G, int x, int y);
 
 //moves a piece from (x,y) to the target location if possible
 int movePiece(GameState G, int x, int y, int targetX, int targetY);
+int winLose(GameState G);
 
 //prints a gamestate w/out and after clearing the terminal respectively
 void displayBoard(GameState G);
@@ -51,7 +52,5 @@ void displayBoardClear(GameState G);
 int isEmpty(GameState G, int x, int y);
 int validMove(GameState G, int x, int y);
 int captureAvailable(GameState G, int x, int y);
-
-void Undo(struct Node *head);
 
 #endif

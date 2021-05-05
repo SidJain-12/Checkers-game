@@ -256,7 +256,7 @@ int movePiece(GameState G, int x, int y, int targetX, int targetY)
     short int isKing = piece%2;
     short int direction = (pieceColour) ? -1 : 1;
 
-    if(!validMove(G, targetX, targetY) || !validMove(G, x, y))
+    if(!validMove(G, targetX, targetY) || !validMove(G, x, y) || pieceColour != G->currPlayer)
         return 0;
 
     if(pieceColour == G->currPlayer){

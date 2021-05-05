@@ -246,6 +246,7 @@ void _updateBoard(GameState G)
 
 //returns 0 for an invalid move (out of bounds/onto another piece/no possible moves)
 //returns -1 if a capture is available but not made
+//returns -2 if no moves can be made (the current player has lost)
 //returns 1 if regular move
 //returns 2 if captured a piece
 //returns 3 if a piece was promoted
@@ -327,28 +328,4 @@ int movePiece(GameState G, int x, int y, int targetX, int targetY)
     }
     else
         return 0;
-}
-
-
-void Undo(struct Node *head)
-{
-    if (head->next == NULL)
-    {
-        GameState G = initEmptyBoard();
-        setBoard(G);
-        displayBoardClear(G);
-    }
-    struct Node *temp = head->next;
-    GameState H = temp->G;
-    if (head->next->next != NULL)
-    {
-        head->next = temp->next;
-        head->next->prev = head;
-    }
-    else
-    {
-        head->next = NULL;
-    }
-    displayBoardClear(H);
-    free(temp);
 }

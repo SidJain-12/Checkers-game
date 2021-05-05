@@ -28,3 +28,26 @@ void insert(GameState G, struct Node *head)
     temp->next = newNode;
     newNode->prev = temp;
 }
+
+void Undo(struct Node *head)
+{
+    if (head->next == NULL)
+    {
+        GameState G = initEmptyBoard();
+        setBoard(G);
+        displayBoardClear(G);
+    }
+    struct Node *temp = head->next;
+    GameState H = temp->G;
+    if (head->next->next != NULL)
+    {
+        head->next = temp->next;
+        head->next->prev = head;
+    }
+    else
+    {
+        head->next = NULL;
+    }
+    displayBoardClear(H);
+    free(temp);
+}

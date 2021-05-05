@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include "game.h"
 #include "doublyll.h"
+#include "future_moves.h"
 
 int main(void)
 {
@@ -13,7 +14,6 @@ int main(void)
     struct Node *head = GetNewNode(G);
 
     int x = 0, y = 0, tX = 0, tY = 0;
-
     //need to include a provision to restrict moves if a capture is available
     while (1)
     {
@@ -46,7 +46,8 @@ int main(void)
             printf("move / m\t--moves a piece\n");
             printf("undo / u\t--undo's a move\n");
             printf("review / r\t--reviews the game from the beginning\n");
-            printf("rules / R\t--prints the rules to American Checkers");
+            printf("rules / R\t--prints the rules to American Checkers\n");
+            printf("future / f\t--prints every possible board state 'k' moves in the future\n");
             printf("exit / x\t--exits the program\n");
         }
         //need to undo for X moves
@@ -59,15 +60,21 @@ int main(void)
             Review(head);
             continue;
         }
-        //UNDER CONSTRUCTION
-        else if(!strcmp(str, "Show_Possible_moves") || !strcmp(str, "s")){
-            //func
+        else if(!strcmp(str, "future") || !strcmp(str, "f")){
+            int k;
+            printf("How many moves into the future? (More than 3 moves isnt recommended for dense boards)\n");
+            scanf("%d",&k);
+
+            FTree F = createFTree(k, G);
+            displayFTree(k, F);
+            freeFTree(F);
+            
             continue;
         }
         //RULES GO HERE
         else if(!strcmp(str, "rules") || !strcmp(str, "R")){
             system("clear");
-            printf("");
+            printf("RULES GO HERE\n");
         }
         else if (!strcmp(str, "exit") || !strcmp(str, "x")){
             break;
@@ -115,11 +122,11 @@ int main(void)
         //default
         else{
             displayBoardClear(G);
-            printf("Invalid command, enter \"HELP\" for the list of accepted commands");
+            printf("Invalid command, enter \"HELP\" for the list of accepted commands\n");
             continue;   
         }
     }
-    
+
     free(G);
     return 0;
 }

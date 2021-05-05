@@ -20,12 +20,12 @@ FNode _addChild(FNode parent, GameState G){
     return  parent->child;
 }
 
-FNode _addSibling(FNode parent, GameState G){
-    FNode temp = parent;
+FNode _addSibling(FNode elder, GameState G){
+    FNode temp = elder;
     while(temp->next != NULL)
         temp = temp->next;
     
-    temp->next = _initFNode(parent->depth, G);
+    temp->next = _initFNode(elder->depth, G);
 
     return temp->next;
 }
@@ -101,28 +101,37 @@ FTree _nextChildren(FNode F){
                 else{
                     short int tempPieceColour = tempPiece >> 1;
                     int direction = ((tempPieceColour == RED) ? -1 : 1);
-                    printf("piece (%d,%d)\n", i+1, j+1);
-                    for(int k = -1; k < 2; k +=2)
-                        if(validMove(G, i + k, j + direction) && isEmpty(G, i + k, j + direction)){
-                            GameState tempBoard = initEmptyBoard();
-                            copyBoard(G, tempBoard);
 
-                            int status = movePiece(tempBoard, i, j, i + k, j + direction);
-
-                            if(status == 1)
-                                printf("succesful normal move of (%d,%d) to (%d,%d)\n", i+1,j+1,i+1 + k, j+1 +direction);
-                            else if(status == 0)
-                                printf("invalid move for piece (%d,%d)\n",i+1,j+1);
-
-                            //assuming F has a child
-                            if(F->child == NULL)
-                                _addChild(F, tempBoard);
-                            else
-                                _addSibling(F->child, tempBoard);
-                            
-                            free(tempBoard);        
-                        }
-                        else printf("no piece/non empty move (%d,%d)\n", i+1, j+1);
+                    if(captureAvailable(G, i, j)){
+                        for(int k = -1; k < 2; k +=2)
+                            if(validMove(G, i + 2*k, j + 2*direction) && isEmpty(G, i + 2*k, j + 2*direction)){
+                                GameState tempBoard = initEmptyBoard();
+                                copyBoard(G, tempBoard);
+                                int status = movePiece(tempBoard, i, j, i + 2*k, j + 2*direction);
+                                //assuming F has a child
+                                if(F->child == NULL)
+                                    _addChild(F, tempBoard);
+                                else
+                                    _addSibling(F->child, tempBoard);
+                                
+                                free(tempBoard);        
+                            }
+                    }
+                    else{
+                        for(int k = -1; k < 2; k +=2)
+                            if(validMove(G, i + k, j + direction) && isEmpty(G, i + k, j + direction)){
+                                GameState tempBoard = initEmptyBoard();
+                                copyBoard(G, tempBoard);
+                                int status = movePiece(tempBoard, i, j, i + k, j + direction);
+                                //assuming F has a child
+                                if(F->child == NULL)
+                                    _addChild(F, tempBoard);
+                                else
+                                    _addSibling(F->child, tempBoard);
+                                
+                                free(tempBoard);        
+                            }
+                    }
                 }
             }
         }

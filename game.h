@@ -52,6 +52,4 @@ int isEmpty(GameState G, int x, int y);
 int validMove(GameState G, int x, int y);
 int captureAvailable(GameState G, int x, int y);
 
-void Undo(struct Node *head);
-
 #endif

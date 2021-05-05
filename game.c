@@ -328,27 +328,3 @@ int movePiece(GameState G, int x, int y, int targetX, int targetY)
     else
         return 0;
 }
-
-
-void Undo(struct Node *head)
-{
-    if (head->next == NULL)
-    {
-        GameState G = initEmptyBoard();
-        setBoard(G);
-        displayBoardClear(G);
-    }
-    struct Node *temp = head->next;
-    GameState H = temp->G;
-    if (head->next->next != NULL)
-    {
-        head->next = temp->next;
-        head->next->prev = head;
-    }
-    else
-    {
-        head->next = NULL;
-    }
-    displayBoardClear(H);
-    free(temp);
-}

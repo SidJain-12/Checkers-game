@@ -29,26 +29,37 @@ void insert(GameState G, struct Node *head)
     newNode->prev = temp;
 }
 
-
-void Undo(struct Node *head)
+GameState Undo(struct Node *head)
 {
     if (head->next == NULL)
     {
-        GameState G = initEmptyBoard();
-        setBoard(G);
-        displayBoardClear(G);
+        GameState F = initEmptyBoard();
+        setBoard(F);
+        return F;
+        // displayBoardClear(G);
     }
     struct Node *temp = head->next;
-    GameState H = temp->G;
-    if (head->next->next != NULL)
-    {
-        head->next = temp->next;
-        head->next->prev = head;
-    }
-    else
-    {
-        head->next = NULL;
-    }
-    displayBoardClear(H);
+    while (temp->next != NULL)
+        temp = temp->next;
+    GameState H = temp->prev->G;
+    // displayBoardClear(H);
+    temp->prev->next = NULL;
     free(temp);
+    return H;
+}
+
+void Review(struct Node *head)
+{
+    struct Node *temp = head;
+    if (head == NULL)
+    {
+        printf("No moves lol");
+        return;
+    }
+    while (temp != NULL)
+    {
+        GameState H = temp->G;
+        displayBoard(H);
+        temp = temp->next;
+    }
 }

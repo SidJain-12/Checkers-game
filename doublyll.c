@@ -1,41 +1,30 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include "doublyll.h"
+#include "game.h"
 
-void push(struct Node **head_ref, int new_data)
+// struct Node *head;
+
+struct Node *GetNewNode(GameState G)
 {
-    struct Node *new_node = (struct Node *)malloc(sizeof(struct Node));
-
-    new_node->data = new_data;
-    new_node->next = (*head_ref);
-    new_node->prev = NULL;
-    if ((*head_ref) != NULL)
-        (*head_ref)->prev = new_node;
-    (*head_ref) = new_node;
+    struct Node *newNode = (struct Node *)malloc(sizeof(struct Node));
+    newNode->G = G;
+    newNode->prev = NULL;
+    newNode->next = NULL;
+    return newNode;
 }
-void append(struct Node **head_ref, int new_data)
+
+void insert(GameState G, struct Node *head)
 {
-
-    struct Node *new_node = (struct Node *)malloc(sizeof(struct Node));
-
-    struct Node *last = *head_ref;
-
-    new_node->data = new_data;
-
-    new_node->next = NULL;
-
-    if (*head_ref == NULL)
+    struct Node *temp = head;
+    struct Node *newNode = GetNewNode(G);
+    if (head == NULL)
     {
-        new_node->prev = NULL;
-        *head_ref = new_node;
+        head = newNode;
         return;
     }
-
-    while (last->next != NULL)
-        last = last->next;
-
-    last->next = new_node;
-
-    new_node->prev = last;
-
-    return;
+    while (temp->next != NULL)
+        temp = temp->next; // Go To last Node
+    temp->next = newNode;
+    newNode->prev = temp;
 }

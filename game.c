@@ -16,7 +16,6 @@ GameState initEmptyBoard(){
         for(int j = 0; j < SIZE; j++)
             G->board[i][j] = EMPTY;
 
-    //This idiom makes sure turn and currPlayer correspond. Used instead of manually updating
     //Red always goes on odd turns, black always goes on even turns
     //Red starts
     G->turn = 1;
@@ -32,9 +31,8 @@ void copyBoard(GameState src, GameState dest)
             dest->board[i][j] = src->board[i][j];
 
     dest->turn = src->turn;
-    dest->currPlayer = src->turn;   
+    dest->currPlayer = src->currPlayer;   
 }
-
 
 //fills a board with empty positions
 void setBoard(GameState G){
@@ -83,6 +81,7 @@ void setBoard(GameState G){
     return;
 }
 
+//displays a board and axes to help move pieces (prev input not cleared)
 void displayBoard(GameState G)
 {   
     printf("Turn: %d\nCurrent player: ", G->turn);
@@ -125,6 +124,7 @@ void displayBoard(GameState G)
     return;
 }
 
+//the terminal is cleared before the board is displayed
 void displayBoardClear(GameState G){
     system("clear");
     displayBoard(G);
@@ -244,6 +244,13 @@ void _updateBoard(GameState G)
     else G->currPlayer = RED;
     return;
 }
+void updateBoard(GameState G)
+{
+    G->turn++;
+    if(G->currPlayer == RED) G->currPlayer = BLACK;
+    else G->currPlayer = RED;
+    return;
+}
 
 //checks if the current player has any playable moves at all
 //uses code from moveAvailable more generally
@@ -251,6 +258,7 @@ int winLose(GameState G){
     int possibleMove = 0, piecesRemaining = 0;
     for(int i = 0; i < SIZE; i++)
         for(int j = 0; j < SIZE; j++){
+            //piece of the current player is detected
             if(G->board[i][j] >> 1 == G->currPlayer)
             {
                 piecesRemaining = 1;
@@ -275,9 +283,9 @@ int winLose(GameState G){
 
     //no possible moves/no remaining pieces means the player has lost
     if(!(possibleMove && piecesRemaining))
-        return 0;
+        return 0; //LOSS
     else
-        return 1;
+        return 1; //possible moves remain
 }
 
 //returns 0 for an invalid move (out of bounds/onto another piece/no possible moves)
@@ -288,12 +296,12 @@ int winLose(GameState G){
 int movePiece(GameState G, int x, int y, int targetX, int targetY)
 {
     short int piece = G->board[x][y];
-    short int pieceColour = piece >> 1;
+    short int pieceColour = piece >> 1;     //simultaneously checks for colours and emptiness
     short int isKing = piece%2;
     short int direction = (pieceColour) ? -1 : 1;
 
     //checks if the given move is valid
-    if(!validMove(G, targetX, targetY) || !validMove(G, x, y) || pieceColour != G->currPlayer)
+    if(!validMove(G, targetX, targetY) || !validMove(G, x, y) || (pieceColour != G->currPlayer))
         return 0;
 
     short int xDist = _abs(x-targetX);

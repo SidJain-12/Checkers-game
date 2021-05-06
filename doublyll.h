@@ -4,12 +4,12 @@
 
 struct Node
 {
-    GameState G;
+    struct GameStateS G1;
     struct Node *next; // Pointer to next node in DLL
     struct Node *prev; // Pointer to previous node in DLL
 };
 
-struct Node* GetNewNode(GameState G);
+struct Node* GetNewNode(struct GameStateS G);
 void insert(GameState G, struct Node *head);
 GameState Undo(struct Node *head);
 void Review(struct Node *head);

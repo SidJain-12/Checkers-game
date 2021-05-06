@@ -31,3 +31,49 @@ Men can jump diagonally forward only; kings can jump in any diagonal direction. 
 
 >> NOTE:
 If a player has the option to jump, he must take it, even if doing so results in disadvantage for the jumping player.
+
+## CaptureAvailable 
+This function returns 1 if there is a capture available and 0 if there is no capture available. 
+The arguments to this function are the pointer to the GameStateS I.e., GameState and two integer parameters that represent the coordinates of the piece on the checker board. 
+Now we have two cases to deal with. One when our piece is a King, and another our piece is Pawn. 
+>> Case 1: King 
+A King can move in all four directions I.e., right and left to the front and right and left to the back. 
+                          
+We have used two “for” loops to encounter these 4 cases. These will run in constant time. 
+Now we check whether a particular move is valid or not. If valid, then whether it can make a capture or not. 
+If a successful capture can be made, then the function returns 1 and if a capture is not possible then it returns 0.  
+                                   
+>> Case 2: Pawn 
+ A pawn can move only in one direction I.e., forward or backward. A red Pawn                 
+ will  move downward on the board. Hence the Y coordinate is reduced by 1. And  
+ a black  pawn will move towards the top on the board and hence the Y 
+ coordinate is incremented by 1. 
+                         
+Now like the previous case it checks for a valid move and a valid capture if                                          
+available, and returns 1 or 0 accordingly.  
+
+
+## ValidMove
+This is a simple function to check whether a given move is valid or not.
+
+We pass the Gamestate pointer, and two integers representing the coordinates of the new position as parameters. 
+
+Now if the coordinates entered exceeds the bounds then the function will return 0.
+
+Now if the coordinates are within the bounds then if the coordinate lies at a white space then the function returns 0, otherwise it returns a 1.
+
+
+## IsEmpty
+This is a simple function to check whether a particular space on the checker board is Empty or not.
+
+If it is Empty then the function returns 1, else it returns a 0.
+
+## DisplayBoard
+This function is implemented to print the Board on the Terminal.
+
+Firstly it prints the current Turn number which is stored in the GameStateS struct. And then prints the player ( Red or Black ).
+
+Two nested for loops are used to print the board. Each loop runs for a constant time. So the overall running time of both the loops together will be constant.
+
+
+

@@ -11,7 +11,7 @@ int main(void)
     GameState G = initEmptyBoard();
     setBoard(G);
     displayBoardClear(G);
-    struct Node *head = GetNewNode(G);
+    struct Node *head = GetNewNode(*G);
 
     int x = 0, y = 0, tX = 0, tY = 0;
     //need to include a provision to restrict moves if a capture is available

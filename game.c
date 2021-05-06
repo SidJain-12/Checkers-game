@@ -10,7 +10,6 @@ int _abs(int a)
 
 GameState initEmptyBoard(){
     GameState G = (GameState) malloc(sizeof(struct GameStateS));// Allocating memory to the board.
-    0.
 
     for(int i = 0; i < SIZE; i++)
         for(int j = 0; j < SIZE; j++)
@@ -90,14 +89,14 @@ void displayBoard(GameState G)
     else
         printf("Black\n\n");
 
-    printf("  1 2 3 4 5 6 7 8\n");
+    printf("  1 2 3 4 5 6 7 8\n"); // Prints the X co-ordinates at one go.
     for(int i = 0; i < SIZE; i++){
-        printf("%d", i+1);
+        printf("%d", i+1);// Prints the Y co-ordinate at every iteration.
         for(int j = 0; j < SIZE; j++){
             switch(G->board[j][i]){
                 case 4:
-                    if(!((i+j)%2)) printf(" □");
-                    else printf(" ■");
+                    if(!((i+j)%2)) printf(" □");// Prints a black box.
+                    else printf(" ■");// Prints a white box.
                     break;
                 case 0: 
                     printf(" \x1B[34mP");
@@ -143,7 +142,7 @@ void addPiece(GameState G, int x, int y, int colour, int type){
 
 void removePiece(GameState G, int x, int y){
     G->board[x][y] = EMPTY;
-}
+Z}
 
 //checks to see if a given piece can make a capture on its next move
 //includes different cases for pawns and kings

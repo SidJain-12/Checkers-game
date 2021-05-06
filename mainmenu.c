@@ -80,9 +80,9 @@ int main(void)
             continue;
         }
         else if(!strcmp(str, "reset") || !strcmp(str, "R") || !strcmp(str, "ff")){
-            char k;
+            char k,buffer;
             printf("Are you sure? (Y,n) \n");
-            scanf("%c",&k);
+            scanf("%c%c",&buffer,&k);
 
             if(k == 'Y'){
                 G = initEmptyBoard();

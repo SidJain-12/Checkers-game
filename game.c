@@ -236,13 +236,6 @@ int moveAvailable(GameState G, int x, int y, int targetX, int targetY)
     }
 }
 
-void _updateBoard(GameState G)
-{
-    G->turn++;
-    if(G->currPlayer == RED) G->currPlayer = BLACK;
-    else G->currPlayer = RED;
-    return;
-}
 void updateBoard(GameState G)
 {
     G->turn++;

@@ -5,10 +5,10 @@
 
 // struct Node *head;
 
-struct Node *GetNewNode(GameState G)
+struct Node *GetNewNode(struct GameStateS G)
 {
     struct Node *newNode = (struct Node *)malloc(sizeof(struct Node));
-    newNode->G = G;
+    newNode->G1 = G;
     newNode->prev = NULL;
     newNode->next = NULL;
     return newNode;
@@ -17,17 +17,21 @@ struct Node *GetNewNode(GameState G)
 void insert(GameState G, struct Node *head)
 {
     struct Node *temp = head;
-    struct Node *newNode = GetNewNode(G);
+    struct Node *newNode = GetNewNode(*G);
     if (head == NULL)
     {
         head = newNode;
         return;
     }
+   
     while (temp->next != NULL)
+    {
         temp = temp->next; // Go To last Node
+    }
     temp->next = newNode;
     newNode->prev = temp;
 }
+
 
 GameState Undo(struct Node *head)
 {
@@ -36,13 +40,13 @@ GameState Undo(struct Node *head)
         GameState F = initEmptyBoard();
         setBoard(F);
         return F;
-        // displayBoardClear(G);
     }
-    struct Node *temp = head->next;
+    struct Node *temp = head;
     while (temp->next != NULL)
         temp = temp->next;
-    GameState H = temp->prev->G;
-    // displayBoardClear(H);
+    GameState H;
+
+    H=&temp->prev->G1;
     temp->prev->next = NULL;
     free(temp);
     return H;
@@ -51,15 +55,14 @@ GameState Undo(struct Node *head)
 void Review(struct Node *head)
 {
     struct Node *temp = head;
-    if (head == NULL)
+    if (head->next== NULL)
     {
-        printf("No moves lol");
+        printf("No moves lol\n");
         return;
     }
     while (temp != NULL)
     {
-        GameState H = temp->G;
-        displayBoard(H);
+        displayBoard(&temp->G1);
         temp = temp->next;
     }
 }

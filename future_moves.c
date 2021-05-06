@@ -76,27 +76,55 @@ void freeFTree(FTree F){
 FTree _nextChildren(FNode F){
     GameState G = F->G;
 
+    int canCapture = 0;
+    for(int i = 0; i < SIZE; i++)
+        for(int j = 0; j < SIZE; j++){
+            if((G->board[i][j] >> 1) == G->currPlayer && captureAvailable(G,i,j))
+                canCapture = 1;
+        }
+
     for(int i = 0; i < SIZE; i++)
         for(int j = 0; j < SIZE; j++){
             if((G->board[i][j] >> 1) == G->currPlayer && !isEmpty(G, i, j) && validMove(G, i, j))
             {
                 short int tempPiece = G->board[i][j];
                 if(tempPiece == BLACK_KING || tempPiece == RED_KING){
-                    for(int k = -1; k < 2; k +=2)
-                        for(int l = -1; l < 2; l +=2)
-                            if(validMove(G, i + k, j + l) && isEmpty(G, i + k, j + l)){
-                                GameState tempBoard = initEmptyBoard();
-                                copyBoard(G, tempBoard);
+                    
+                    if(captureAvailable(G,i,j)){
+                        for(int k = -1; k < 2; k +=2)
+                            for(int l = -1; l < 2; l +=2)
+                                if(validMove(G, i + k*2, j + l*2) && isEmpty(G, i + k*2, j + l*2)){
+                                    GameState tempBoard = initEmptyBoard();
+                                    copyBoard(G, tempBoard);
 
-                                movePiece(tempBoard, i, j, i + k, j + l);
-                                //assuming F has a child
-                                if(F->child == NULL)
-                                    _addChild(F, tempBoard);
-                                else
-                                    _addSibling(F->child, tempBoard);
-                                
-                                free(tempBoard);
-                            }
+                                    movePiece(tempBoard, i, j, i + k*2, j + l*2);
+                                    //assuming F has a child
+                                    if(F->child == NULL)
+                                        _addChild(F, tempBoard);
+                                    else
+                                        _addSibling(F->child, tempBoard);
+                                    
+                                    free(tempBoard);
+                                }
+                    }
+                    
+                    else if(canCapture == 0){
+                        for(int k = -1; k < 2; k +=2)
+                            for(int l = -1; l < 2; l +=2)
+                                if(validMove(G, i + k, j + l) && isEmpty(G, i + k, j + l)){
+                                    GameState tempBoard = initEmptyBoard();
+                                    copyBoard(G, tempBoard);
+
+                                    movePiece(tempBoard, i, j, i + k, j + l);
+                                    //assuming F has a child
+                                    if(F->child == NULL)
+                                        _addChild(F, tempBoard);
+                                    else
+                                        _addSibling(F->child, tempBoard);
+                                    
+                                    free(tempBoard);
+                                }
+                    }
                 }
                 else{
                     short int tempPieceColour = tempPiece >> 1;
@@ -117,7 +145,7 @@ FTree _nextChildren(FNode F){
                                 free(tempBoard);        
                             }
                     }
-                    else{
+                    else if(canCapture == 0){
                         for(int k = -1; k < 2; k +=2)
                             if(validMove(G, i + k, j + direction) && isEmpty(G, i + k, j + direction)){
                                 GameState tempBoard = initEmptyBoard();

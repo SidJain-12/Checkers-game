@@ -142,7 +142,7 @@ void addPiece(GameState G, int x, int y, int colour, int type){
 
 void removePiece(GameState G, int x, int y){
     G->board[x][y] = EMPTY;
-Z}
+}
 
 //checks to see if a given piece can make a capture on its next move
 //includes different cases for pawns and kings
@@ -236,7 +236,7 @@ int moveAvailable(GameState G, int x, int y, int targetX, int targetY)
     }
 }
 
-void updateBoard(GameState G)
+void _updateBoard(GameState G)
 {
     G->turn++;
     if(G->currPlayer == RED) G->currPlayer = BLACK;

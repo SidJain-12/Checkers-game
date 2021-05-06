@@ -5,11 +5,12 @@
 
 int _abs(int a)
 {
-    return (a>0) ? a : -a;
+    return (a>0) ? a : -a;// Returns the absolute value of the entered value.
 }
 
 GameState initEmptyBoard(){
-    GameState G = (GameState) malloc(sizeof(struct GameStateS));
+    GameState G = (GameState) malloc(sizeof(struct GameStateS));// Allocating memory to the board.
+    0.
 
     for(int i = 0; i < SIZE; i++)
         for(int j = 0; j < SIZE; j++)

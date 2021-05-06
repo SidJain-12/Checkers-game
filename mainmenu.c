@@ -46,9 +46,16 @@ int main(void)
             printf("move / m\t--moves a piece\n");
             printf("undo / u\t--undo's a move\n");
             printf("review / r\t--reviews the game from the beginning\n");
-            printf("rules / R\t--prints the rules to American Checkers\n");
+            printf("reset / R / ff\t--resets the game\n");
             printf("future / f\t--prints every possible board state 'k' moves in the future\n");
-            printf("exit / x\t--exits the program\n");
+            printf("exit / x\t--exits the program\n\n");
+            printf("Enter a character to exit\n");
+
+            char buffer,q;
+            if(scanf("%c%c",&buffer,&q)){
+                displayBoardClear(G);
+                continue;
+            }
         }
         //need to undo for X moves
         else if(!strcmp(str, "undo") || !strcmp(str, "u")){
@@ -65,16 +72,26 @@ int main(void)
             printf("How many moves into the future? (More than 3 moves isnt recommended for dense boards)\n");
             scanf("%d",&k);
 
+            system("clear");
             FTree F = createFTree(k, G);
             displayFTree(k, F);
             freeFTree(F);
             
             continue;
         }
-        //RULES GO HERE
-        else if(!strcmp(str, "rules") || !strcmp(str, "R")){
-            system("clear");
-            printf("RULES GO HERE\n");
+        else if(!strcmp(str, "reset") || !strcmp(str, "R") || !strcmp(str, "ff")){
+            char k;
+            printf("Are you sure? (Y,n) \n");
+            scanf("%c",&k);
+
+            if(k == 'Y'){
+                G = initEmptyBoard();
+                setBoard(G);
+                continue;
+            }
+            else{
+                continue;
+            }
         }
         else if (!strcmp(str, "exit") || !strcmp(str, "x")){
             break;

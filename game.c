@@ -80,6 +80,7 @@ void setBoard(GameState G){
     return;
 }
 
+//displays a board and axes to help move pieces (prev input not cleared)
 void displayBoard(GameState G)
 {   
     printf("Turn: %d\nCurrent player: ", G->turn);
@@ -122,6 +123,7 @@ void displayBoard(GameState G)
     return;
 }
 
+//the terminal is cleared before the board is displayed
 void displayBoardClear(GameState G){
     system("clear");
     displayBoard(G);

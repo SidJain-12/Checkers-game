@@ -16,6 +16,7 @@ Checkers (also known as Draughts) is a popular group of board games. The most co
 4. The row closest to each player is called the kings row or crownhead.
 5. The player with the darker-coloured pieces moves first. Then plays the second player.
 6. Once a piece is kinged, the player must wait until the next turn to jump out of the king row. This applies to multi-jumps as well.
+7. You win the game when the opponent has no more pieces or can't move (even if he/she still has pieces). If neither player can move then it is a draw or a tie.
 
 # Move Rules
 There are two different ways to move in English draughts:

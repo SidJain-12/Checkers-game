@@ -15,6 +15,7 @@ Checkers (also known as Draughts) is a popular group of board games. The most co
 3. The men of each player can move only in the dark squares and only diagnol moves are possible.
 4. The row closest to each player is called the kings row or crownhead.
 5. The player with the darker-coloured pieces moves first. Then plays the second player.
+6. Once a piece is kinged, the player must wait until the next turn to jump out of the king row. This applies to multi-jumps as well.
 
 # Move Rules
 There are two different ways to move in English draughts:

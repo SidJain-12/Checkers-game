@@ -77,22 +77,26 @@ Firstly it prints the current Turn number which is stored in the GameStateS stru
 
 Two nested for loops are used to print the board. Each loop runs for a constant time. So the overall running time of both the loops together will be constant.
 
-##USER-GUIDE 
-##☆INSTRUCTIONS ON HOW TO PLAY CHECKERS ON TERMINAL--
+# USER-GUIDE 
+## ☆INSTRUCTIONS ON HOW TO PLAY CHECKERS ON TERMINAL--
 
 You need to compile game.c , main.c ,doublyll.c, future_moves.c(i.e, 4 files) together to get a .out file.open .out file.
 The interface of game displays details about current gamestate like current player , i th number of turn, current gamestate board.
 It asks for a command--(“Enter a command”)
 Write/give one of the following commands on terminal-
->>move: (“move” /  “m” - you can give any of the two commands)
+## move: (“move” /  “m” - you can give any of the two commands)
 when you type this command, it asks for the coordinates of the piece you want to move. Now give the coordinates in the following way
 ``current_X  current_Y target_X  target_Y``
 According to your move, a command pops up describing your move like “Regular move”, “you made a capture”, “invalid move”.
->>Undo: (“undo”/ “u”): this changes current gamestate to previous gamestate. Everytime you “undo”, gamestate gets changed to the previous one.
->>Review: (“review”/ “r”):as the name suggests, this displays the gamestates from beginning till the current gamestate.
->>Future moves: (“future”/ “f”) when you give this command, you need to enter ‘X’ , which is the number of moves into the future you wish to see.
+## Undo: (“undo”/ “u”): 
+this changes current gamestate to previous gamestate. Everytime you “undo”, gamestate gets changed to the previous one.
+## Review: (“review”/ “r”):
+as the name suggests, this displays the gamestates from beginning till the current gamestate.
+## Future moves: 
+(“future”/ “f”) when you give this command, you need to enter ‘X’ , which is the number of moves into the future you wish to see.
 The function then prints every possible configuration of the board after ‘x’ moves. As mentioned in the project requirements, EACH players turn counts as 1 move, so a round of red then black counts as 2.
->>Reset: (“reset”/ “R”/ “ff”)if this command is given, it  once again asks  to reset or not. By giving “Y” (yes)( it doesn’t reset if you give “n”), it resets the game and now both players can start a fresh game.
+## Reset: 
+(“reset”/ “R”/ “ff”)if this command is given, it  once again asks  to reset or not. By giving “Y” (yes)( it doesn’t reset if you give “n”), it resets the game and now both players can start a fresh game.
 
 
 

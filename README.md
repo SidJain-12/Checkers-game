@@ -76,6 +76,14 @@ This function is implemented to print the Board on the Terminal.
 Firstly it prints the current Turn number which is stored in the GameStateS struct. And then prints the player ( Red or Black ).
 
 Two nested for loops are used to print the board. Each loop runs for a constant time. So the overall running time of both the loops together will be constant.
+## Undo
+This function is used to undo a move and go to previous position.
+In “undo” , we traverse the linked list using a ‘temp’ pointer, then following . we make temp point to the previous game state, and then pnext of previous node will be made pointed to null.In this way, Undo is implemented.
+
+## Review
+The review function reviews the game from beginning, i.e, displays all gamestates sequentially till the current gamestate.
+
+
 
 ##USER-GUIDE 
 ##☆INSTRUCTIONS ON HOW TO PLAY CHECKERS ON TERMINAL--

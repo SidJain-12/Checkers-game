@@ -3,8 +3,8 @@
 #include "doublyll.h"
 #include "game.h"
 
-// struct Node *head;
 
+// To create a new node with its content as GameStateS G and next and prev NULL and returns pointer to it. 
 struct Node *GetNewNode(struct GameStateS G)
 {
     struct Node *newNode = (struct Node *)malloc(sizeof(struct Node));
@@ -14,6 +14,7 @@ struct Node *GetNewNode(struct GameStateS G)
     return newNode;
 }
 
+//Insert the GameStateS G at the tail of the linked list
 void insert(GameState G, struct Node *head)
 {
     struct Node *temp = head;
@@ -32,32 +33,33 @@ void insert(GameState G, struct Node *head)
     newNode->prev = temp;
 }
 
-
+//Undoing the latest move by deleting the last node and returning the node previous to the it
 GameState Undo(struct Node *head)
 {
     if (head->next == NULL)
     {
         GameState F = initEmptyBoard();
-        setBoard(F);
+        setBoard(F);// Go to initial state of the board
         return F;
     }
     struct Node *temp = head;
     while (temp->next != NULL)
-        temp = temp->next;
+        temp = temp->next;// Go To last Node
     GameState H;
 
-    H=&temp->prev->G1;
+    H=&temp->prev->G1;//return the node previous to last one
     temp->prev->next = NULL;
-    free(temp);
+    free(temp);//Delete the last node
     return H;
 }
 
+// Print all the moves played by the players from start
 void Review(struct Node *head)
 {
     struct Node *temp = head;
     if (head->next== NULL)
     {
-        printf("No moves lol\n");
+        printf("There have been no moves lol\n");
         return;
     }
     while (temp != NULL)

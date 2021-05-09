@@ -83,7 +83,7 @@ This function lets you look into the all the possible moves into the future for 
 # USER-GUIDE  
 ## INSTRUCTIONS ON HOW TO PLAY CHECKERS ON TERMINAL 
 
-You need to compile game.c , main.c ,doublyll.c, future_moves.c(i.e, 4 files) together to get a .out file.open .out file.
+You need to compile game.c , main.c ,doublyll.c, future_moves.c(i.e, 4 files) together to get a .out file.Then run it by giving ./a.out.
 The interface of game displays details about current gamestate like current player , i th number of turn, current gamestate board.
 It asks for a command--(“Enter a command”)
 Write/give one of the following commands on terminal-

@@ -54,13 +54,11 @@ If a successful capture can be made, then the function returns 1 and if a captur
 Now like the previous case it checks for a valid move and a valid capture if                                          
 available, and returns 1 or 0 accordingly.  
 
-
 ## ValidMove
 This is a simple function to check whether a given move is valid or not.
 We pass the Gamestate pointer, and two integers representing the coordinates of the new position as parameters. 
 Now if the coordinates entered exceeds the bounds then the function will return 0.
 Now if the coordinates are within the bounds then if the coordinate lies at a white space then the function returns 0, otherwise it returns a 1.
-
 
 ## IsEmpty
 This is a simple function to check whether a particular space on the checker board is Empty or not.
@@ -68,13 +66,11 @@ If it is Empty then the function returns 1, else it returns a 0.
 
 ## DisplayBoard
 This function is implemented to print the Board on the Terminal.
-
 Firstly it prints the current Turn number which is stored in the GameStateS struct. And then prints the player ( Red or Black ).
-
 Two nested for loops are used to print the board. Each loop runs for a constant time. So the overall running time of both the loops together will be constant.
+
 ## Undo
-This function is used to undo a move and go to previous position.
-In “undo” , we traverse the linked list using a ‘temp’ pointer, then following . we make temp point to the previous game state, and then pnext of previous node will be made pointed to null.In this way, Undo is implemented.
+This function is used to undo a move and go to previous position. In “undo”,we traverse the linked list using a ‘temp’ pointer, then following . We make temp point to the previous game state, and then pnext of previous node will be made pointed to null.In this way, Undo is implemented.
 
 ## Review
 The review function reviews the game from beginning, i.e, displays all gamestates sequentially till the current gamestate.
@@ -83,7 +79,8 @@ The review function reviews the game from beginning, i.e, displays all gamestate
 This function lets you look into the all the possible moves into the future for the next k moves.
 
 
-## USER-GUIDE 
+
+### USER-GUIDE  
 ## INSTRUCTIONS ON HOW TO PLAY CHECKERS ON TERMINAL 
 
 You need to compile game.c , main.c ,doublyll.c, future_moves.c(i.e, 4 files) together to get a .out file.open .out file.

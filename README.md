@@ -80,7 +80,7 @@ This function lets you look into the all the possible moves into the future for 
 
 
 
-### USER-GUIDE  
+# USER-GUIDE  
 ## INSTRUCTIONS ON HOW TO PLAY CHECKERS ON TERMINAL 
 
 You need to compile game.c , main.c ,doublyll.c, future_moves.c(i.e, 4 files) together to get a .out file.open .out file.

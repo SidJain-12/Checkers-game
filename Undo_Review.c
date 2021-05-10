@@ -8,7 +8,7 @@
 struct Node *GetNewNode(struct GameStateS G)
 {
     struct Node *newNode = (struct Node *)malloc(sizeof(struct Node));
-    newNode->G1 = G;
+    copyBoard(&G, &(newNode->G1));
     newNode->prev = NULL;
     newNode->next = NULL;
     return newNode;
@@ -21,7 +21,9 @@ void insert(GameState G, struct Node *head)
     struct Node *newNode = GetNewNode(*G);
     if (head == NULL)
     {
-        head = newNode;
+        GameState tt = initEmptyBoard();
+        setBoard(tt);
+        head = GetNewNode(*tt);
         return;
     }
    
@@ -43,6 +45,8 @@ GameState Undo(struct Node *head, int k)
         return F;
     }
 
+    GameState H;
+
     struct Node *temp = head;
     while (temp->next != NULL)
         temp = temp->next;// Go To last Node
@@ -59,6 +63,9 @@ GameState Undo(struct Node *head, int k)
     // H = &temp->prev->G1;//return the node previous to last one
     // temp->prev->next = NULL;
     // free(temp);//Delete the last node
+
+    // return H;
+
     return &(temp->G1);
 }
 
@@ -66,11 +73,11 @@ GameState Undo(struct Node *head, int k)
 void Review(struct Node *head)
 {
     struct Node *temp = head;
-    if (head->next== NULL)
-    {
-        printf("There have been no moves lol\n");
-        return;
-    }
+    // if (head->next== NULL)
+    // {
+    //     printf("There have been no moves lol\n");
+    //     return;
+    // }
     while (temp != NULL)
     {
         displayBoard(&temp->G1);

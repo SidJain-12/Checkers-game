@@ -7,7 +7,6 @@
 
 int main(void)
 {
-    int status = 0;
     GameState G = initEmptyBoard();
     setBoard(G);
     displayBoardClear(G);
@@ -51,7 +50,7 @@ int main(void)
             printf("future / f\t--prints every possible board state 'k' moves in the future\n");
             printf("exit / x\t--exits the program\n\n");
             
-            printf("Enter a character to exit\n");
+            printf("Enter a character to resume playing\n");
             char buffer,q;
             if(scanf("%c%c",&buffer,&q)){
                 displayBoardClear(G);
@@ -63,17 +62,17 @@ int main(void)
             int k;
             displayBoardClear(G);
             printf("How many moves should be undone?\n");
-            scanf("%d",&k);
-
-            G = Undo(head, k);
-            displayBoardClear(G);
+            if(scanf("%d",&k)){
+                G = Undo(head, k);
+                displayBoardClear(G);
+            }
             continue;
         }
         else if(!strcmp(str, "review") || !strcmp(str, "r")){
             system("clear");
             Review(head);
 
-            printf("Enter a character to exit\n");
+            printf("Enter a character to resume playing\n");
             char buffer,q;
             if(scanf("%c%c",&buffer,&q)){
                 displayBoardClear(G);
@@ -91,7 +90,7 @@ int main(void)
             displayFTree(k, F);
             freeFTree(F);
             
-            printf("Enter a character to exit\n");
+            printf("Enter a character to resume playing\n");
             char buffer,q;
             if(scanf("%c%c",&buffer,&q)){
                 displayBoardClear(G);
@@ -109,6 +108,15 @@ int main(void)
                 G = initEmptyBoard();
                 setBoard(G);
                 displayBoardClear(G);
+                
+                struct Node* temp = head;
+                while(temp != NULL){
+                    struct Node* tt = temp;
+                    temp = temp->next;
+                    free(tt);
+                }
+                head = GetNewNode(*G);
+
                 continue;
             }
             else{
@@ -131,11 +139,16 @@ int main(void)
             x--; y--;tX--; tY--;
 
             if (x == -1 && y == -1 && tX == -1 && tY == -1){
-                free(head);
+                struct Node* temp = head;
+                while(temp != NULL){
+                    struct Node* tt = temp;
+                    temp = temp->next;
+                    free(tt);
+                }
                 break;
             }
 
-            status = movePiece(G, x, y, tX, tY);
+            int status = movePiece(G, x, y, tX, tY);
             if(status == 1 || status == 2 || status == 3) 
                 insert(G, head);
             displayBoardClear(G);

@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "doublyll.h"
+#include "Undo_Review.h"
 #include "game.h"
 
 
@@ -34,7 +34,7 @@ void insert(GameState G, struct Node *head)
 }
 
 //Undoing the latest move by deleting the last node and returning the node previous to the it
-GameState Undo(struct Node *head)
+GameState Undo(struct Node *head, int k)
 {
     if (head->next == NULL)
     {
@@ -42,15 +42,24 @@ GameState Undo(struct Node *head)
         setBoard(F);// Go to initial state of the board
         return F;
     }
+
     struct Node *temp = head;
     while (temp->next != NULL)
         temp = temp->next;// Go To last Node
-    GameState H;
 
-    H=&temp->prev->G1;//return the node previous to last one
-    temp->prev->next = NULL;
-    free(temp);//Delete the last node
-    return H;
+    for(int i = 0; i < k; i++){
+        if(temp->prev != NULL){
+            temp = temp->prev;
+            free(temp->next);
+            temp->next = NULL;
+        }
+        else break;
+    }
+    
+    // H = &temp->prev->G1;//return the node previous to last one
+    // temp->prev->next = NULL;
+    // free(temp);//Delete the last node
+    return &(temp->G1);
 }
 
 // Print all the moves played by the players from start

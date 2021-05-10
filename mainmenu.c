@@ -38,6 +38,7 @@ int main(void)
                 break;
         }
 
+        // displayBoardClear(G);
         printf("Enter a command\n");
         scanf("%s", str);
 
@@ -49,8 +50,8 @@ int main(void)
             printf("reset / R / ff\t--resets the game\n");
             printf("future / f\t--prints every possible board state 'k' moves in the future\n");
             printf("exit / x\t--exits the program\n\n");
+            
             printf("Enter a character to exit\n");
-
             char buffer,q;
             if(scanf("%c%c",&buffer,&q)){
                 displayBoardClear(G);
@@ -59,12 +60,25 @@ int main(void)
         }
         //need to undo for X moves
         else if(!strcmp(str, "undo") || !strcmp(str, "u")){
-            G = Undo(head);
+            int k;
+            displayBoardClear(G);
+            printf("How many moves should be undone?\n");
+            scanf("%d",&k);
+
+            G = Undo(head, k);
             displayBoardClear(G);
             continue;
         }
         else if(!strcmp(str, "review") || !strcmp(str, "r")){
+            system("clear");
             Review(head);
+
+            printf("Enter a character to exit\n");
+            char buffer,q;
+            if(scanf("%c%c",&buffer,&q)){
+                displayBoardClear(G);
+                continue;
+            }
             continue;
         }
         else if(!strcmp(str, "future") || !strcmp(str, "f")){
@@ -77,16 +91,24 @@ int main(void)
             displayFTree(k, F);
             freeFTree(F);
             
+            printf("Enter a character to exit\n");
+            char buffer,q;
+            if(scanf("%c%c",&buffer,&q)){
+                displayBoardClear(G);
+                continue;
+            }
+
             continue;
         }
         else if(!strcmp(str, "reset") || !strcmp(str, "R") || !strcmp(str, "ff")){
-            char k,buffer;
-            printf("Are you sure? (Y,n) \n");
-            scanf("%c%c",&buffer,&k);
+            char k,buffer,d;
+            printf("Are you sure? (Y,N) \n");
+            scanf("%c%c%c",&d,&k,&buffer);
 
-            if(k == 'Y'){
+            if(k == 'Y' || k == 'y'){
                 G = initEmptyBoard();
                 setBoard(G);
+                displayBoardClear(G);
                 continue;
             }
             else{
@@ -114,7 +136,8 @@ int main(void)
             }
 
             status = movePiece(G, x, y, tX, tY);
-            insert(G, head);
+            if(status == 1 || status == 2 || status == 3) 
+                insert(G, head);
             displayBoardClear(G);
 
             switch (status){
@@ -144,6 +167,7 @@ int main(void)
         }
     }
 
-    free(G);
+    if(G != NULL)
+        free(G);
     return 0;
 }

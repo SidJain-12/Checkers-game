@@ -87,7 +87,7 @@ void displayBoard(GameState G)
     if(G->currPlayer == RED)
         printf("Red\n\n");
     else
-        printf("Black\n\n");
+        printf("Blue\n\n");
 
     printf("  1 2 3 4 5 6 7 8\n"); // Prints the X co-ordinates at one go.
     for(int i = 0; i < SIZE; i++){

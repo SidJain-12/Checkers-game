@@ -20,7 +20,7 @@ int main(void)
         if(!winLose(G)){
             displayBoardClear(G);
             if(G->currPlayer == BLACK)
-                printf("Black ");
+                printf("Blue ");
             else
                 printf("Red ");
             printf("lost the game!\n");
@@ -43,12 +43,12 @@ int main(void)
 
         if(!strcmp(str, "h") || !strcmp(str, "help") || !strcmp(str, "HELP") || !strcmp(str, "Help")){
             system("clear");
-            printf("move / m\t--moves a piece\n");
-            printf("undo / u\t--undo's a move\n");
-            printf("review / r\t--reviews the game from the beginning\n");
-            printf("reset / R / ff\t--resets the game\n");
-            printf("future / f\t--prints every possible board state 'k' moves in the future\n");
-            printf("exit / x\t--exits the program\n\n");
+            printf("move / m\t--Moves a piece\n");
+            printf("undo / u\t--Undo's a move\n");
+            printf("review / r\t--Reviews the game from the beginning\n");
+            printf("reset / R / ff\t--Resets the game\n");
+            printf("future / f\t--Prints every possible board state 'k' moves in the future\n");
+            printf("exit / x\t--Exits the program\n\n");
             
             printf("Enter a character to resume playing\n");
             char buffer,q;
